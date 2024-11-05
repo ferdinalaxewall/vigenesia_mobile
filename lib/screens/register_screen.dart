@@ -13,26 +13,34 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
+  final TextEditingController profesiController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Registrasi Akun Baru')),
+      appBar: AppBar(title: const Text('Registrasi Akun Baru')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             TextField(
               controller: nameController,
-              decoration: const InputDecoration(labelText: 'Nama Lengkap'),
+              decoration: const InputDecoration(labelText: 'Nama Lengkap', border: OutlineInputBorder()),
             ),
+            const SizedBox(height: 10),
+            TextField(
+              controller: profesiController,
+              decoration: const InputDecoration(labelText: 'Profesi', border: OutlineInputBorder()),
+            ),
+            const SizedBox(height: 10),
             TextField(
               controller: emailController,
-              decoration: const InputDecoration(labelText: 'Email'),
+              decoration: const InputDecoration(labelText: 'Email', border: OutlineInputBorder()),
             ),
+            const SizedBox(height: 10),
             TextField(
               controller: passwordController,
-              decoration: const InputDecoration(labelText: 'Password'),
+              decoration: const InputDecoration(labelText: 'Password', border: OutlineInputBorder()),
               obscureText: true,
             ),
             const SizedBox(height: 20),
@@ -43,6 +51,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   emailController.text,
                   passwordController.text,
                   nameController.text,
+                  profesiController.text
                 );
                 if (user != null) {
                   Navigator.pushReplacement(
@@ -56,6 +65,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 }
               },
               child: const Text('Register'),
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              )
             ),
           ],
         ),

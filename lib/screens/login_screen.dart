@@ -23,11 +23,12 @@ class _LoginScreenState extends State<LoginScreen> {
           children: [
             TextField(
               controller: emailController,
-              decoration: const InputDecoration(labelText: 'Email'),
+              decoration: const InputDecoration(labelText: 'Email', border: OutlineInputBorder()),
             ),
+            const SizedBox(height: 10),
             TextField(
               controller: passwordController,
-              decoration: const InputDecoration(labelText: 'Password'),
+              decoration: const InputDecoration(labelText: 'Password', border: OutlineInputBorder()),
               obscureText: true,
             ),
             const SizedBox(height: 20),
@@ -50,6 +51,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 }
               },
               child: const Text('Login'),
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              )
             ),
             SizedBox(height: 10),
             Row(
