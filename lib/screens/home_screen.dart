@@ -15,8 +15,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final TextEditingController motivationController = TextEditingController();
-  List<String> motivations = []; // Menyimpan daftar motivasi
+  List<Motivation> motivations = []; // Menyimpan daftar motivasi
 
   @override
   void initState() {
@@ -33,24 +32,17 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  // Fungsi untuk submit motivasi
-  Future<void> _submitMotivation() async {
-    final apiService = Provider.of<ApiService>(context, listen: false);
-    await apiService.addMotivation(motivationController.text, widget.user.id);
-    motivationController.clear();
-    _loadMotivations(); // Reload data motivasi setelah submit
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home'),
+        title: const Text('Home'),
         actions: [
           IconButton(
-            icon: Icon(Icons.logout),
+            icon: const Icon(Icons.logout),
             onPressed: () async {
-              final apiService = Provider.of<ApiService>(context, listen: false);
+              final apiService =
+                  Provider.of<ApiService>(context, listen: false);
               await apiService.logout();
               Navigator.pushReplacement(
                 context,
@@ -67,28 +59,9 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Text(
               'Selamat datang, ${widget.user.name}!',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 20),
-            TextField(
-              controller: motivationController,
-              decoration: InputDecoration(
-                labelText: 'Isi motivasi anda..',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: _submitMotivation,
-              child: Text('Simpan Motivasi'),
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              )
-            ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Expanded(
               child: ListView.builder(
                 itemCount: motivations.length,
@@ -97,9 +70,30 @@ class _HomeScreenState extends State<HomeScreen> {
                     margin: const EdgeInsets.symmetric(vertical: 5),
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
-                      child: Text(
-                        motivations[index],
-                        style: TextStyle(fontSize: 16),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.person_2,
+                                color: Colors.deepPurple,
+                              ),
+                              const SizedBox(width: 10),
+                              Text(
+                                motivations[index].user.name,
+                                style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.deepPurple),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            motivations[index].isi_motivasi,
+                            style: const TextStyle(fontSize: 16),
+                          ),
+                        ],
                       ),
                     ),
                   );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:vigenesia_mobile/screens/main_screen.dart';
 import 'package:vigenesia_mobile/screens/register_screen.dart';
 import '../services/api_service.dart';
 import 'home_screen.dart';
@@ -42,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 if (user != null) {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => HomeScreen(user: user)),
+                    MaterialPageRoute(builder: (context) => MainScreen(user: user)),
                   );
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(

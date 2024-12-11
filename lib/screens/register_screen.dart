@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vigenesia_mobile/screens/login_screen.dart';
 import '../services/api_service.dart';
-import 'home_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override

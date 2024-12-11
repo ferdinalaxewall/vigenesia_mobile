@@ -66,17 +66,44 @@ class ApiService {
   }
 
   // Fungsi untuk mendapatkan daftar motivasi
-  Future<List<String>> getMotivations() async {
+  Future<List<Motivation>> getMotivations() async {
     try {
       final response = await _dio.get('/motivations');
-      return List<String>.from(response.data.map((item) => item['isi_motivasi']));
+      return List<Motivation>.from(response.data.map((item) => Motivation.fromJson(item)));
     } catch (e) {
       print('Error saat mengambil motivasi: $e');
       return [];
     }
   }
 
+  // Fungsi untuk mendapatkan daftar motivasi
+  Future<List<Motivation>> getMotivationByUser(int userId) async {
+    try {
+      final response = await _dio.get('/motivations/user/$userId');
+      return List<Motivation>.from(response.data.map((item) => Motivation.fromJson(item)));
+    } catch (e) {
+      print('Error saat mengambil motivasi: $e');
+      return [];
+    }
+  }
 
+  Future<void> updateMotivation(int motivationId, String motivationText) async {
+    try {
+      await _dio.put('/motivations/$motivationId', data: {
+        'isi_motivasi': motivationText,
+      });
+    } catch (e) {
+      print('Error saat mengupdate motivasi: $e');
+    }
+  }
+
+  Future<void> deleteMotivation(int motivationId) async {
+    try {
+      await _dio.delete('/motivations/$motivationId');
+    } catch (e) {
+      print('Error saat menghapus motivasi: $e');
+    }
+  }
 
   // Fungsi untuk logout
   Future<void> logout() async {
